@@ -19,7 +19,7 @@ public class DemoAppApplication {
 	@Bean
 	public ModelMapper modelMapper(){
 		 ModelMapper modelMapper = new ModelMapper();
-		 modelMapper.getConfiguration().setSkipNullEnabled(false);//  configurado para n considerar valores nulos 
+		 modelMapper.getConfiguration().setSkipNullEnabled(true);//  configurado para n considerar valores nulos 
 		 return modelMapper;
 	}
 

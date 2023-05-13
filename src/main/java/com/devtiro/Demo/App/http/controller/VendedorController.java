@@ -31,9 +31,12 @@ public class VendedorController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	// na PostMapping, automaticamente o @RequestBody esta pegando os dados e atributos da classe Vendedor
+	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) // resposta 201 
 	public Vendedor salvar(@RequestBody Vendedor vendedor) {
+		System.out.println("Entrou no post ------- ");
 		return vendedorService.gerarVenda(vendedor);
 	}
 	
@@ -46,7 +49,7 @@ public class VendedorController {
 	//Consultar vendedor por id 
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Vendedor buscarVendedorPorId(@PathVariable("id") Integer id) {
+	public Vendedor buscarVendedorPorId(@PathVariable("id")Integer id) {
 		return vendedorService.buscarPorId(id)
 				.orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "Vendedor nao encontrado"));
 	}
@@ -54,7 +57,7 @@ public class VendedorController {
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void removerVendedor(Integer id) {
+	public void removerVendedor(@PathVariable("id") Integer id) {
 		vendedorService.buscarPorId(id).map(vendedor -> {
 			System.out.println("Vendedor a ser excluido : " + vendedor);
 			vendedorService.removerPorId(id);
@@ -62,23 +65,31 @@ public class VendedorController {
 		});
 	}
 	
+//	@PutMapping("/{id}")
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	public void atualizarVendedor(@PathVariable("id") Integer id, @RequestBody Vendedor vendedor) {
+//		System.out.println("------------ Entrou em atualizarVendedor ------------");
+//		vendedorService.buscarPorId(id)
+//		.map(sellerBase -> {
+//			System.out.println("sellerBase ->  " + sellerBase);
+//			System.out.println("------------ Entrou em map(sellerBase) ------------");
+//			modelMapper.map(vendedor, sellerBase); // map esta pegando todos os atributos que estao na classe Vendedor
+//			vendedorService.gerarVenda(sellerBase);
+//			System.out.println("------------ passou MODELMAPPER.map()  ------------");
+//			// como nome, id, qtdVendas e idVendedor e adicionando sellerBase 
+//			System.out.println("------------ passou vendedorService.gerarVendas ------------");
+//			return Void.TYPE; // tirar 
+//		}).orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "Vendedor nao encontrado"));
+//		
+//	}
+
+
+	
 	@PutMapping("/{id}")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void atualizarVendedor(@PathVariable("id") Integer id, @RequestBody Vendedor vendedor) {
-		vendedorService.buscarPorId(id).map(sellerBase -> {
-			modelMapper.map(vendedor, sellerBase); // map esta pegando todos os atributos que estao na classe Vendedor 
-			// como nome, id, qtdVendas e idVendedor e adicionando sellerBase 
-			return Void.TYPE; // tirar 
-		}).orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "Vendedor nao encontrado"));
-		
-	}
-	
-	// map adiciona nulo em campos que n foram inseridos valores 
-	
-	
-	
-	
-	
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void atualizarCliente(@PathVariable("id") Integer id, @RequestBody Vendedor vendedor){
+    	vendedorService.atualizaVendedor(id, vendedor);
+    }
 	
 	
 }

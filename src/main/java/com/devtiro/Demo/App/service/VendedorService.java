@@ -39,6 +39,20 @@ public class VendedorService {
 	public void removerPorId(Integer id) {
 		vendedorRepository.deleteById(id);
 	}
+	
+	public Vendedor atualizaVendedor(Integer id, Vendedor vendedorAtualizado) { 
+		Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
+		if(vendedorAntigo.isPresent()) {
+			Vendedor vendedor = vendedorAntigo.get();
+			vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
+			vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
+			vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
+			
+			return vendedorRepository.save(vendedor);
+		} else {
+			throw new RuntimeException("Vendedor não encontrado");
+		}
+	}
 		
 }
 
