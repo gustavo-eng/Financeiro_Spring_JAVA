@@ -20,7 +20,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-
+import org.hibernate.*;
 
 @Data // cria os getters e setters 
 @AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 
@@ -30,16 +30,17 @@ import lombok.NoArgsConstructor;
 
 @Entity //  para informar que é uma entidade de banco de dados
 public class Vendas implements Serializable{
+	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idVenda; 
-	/* chave estrangeira  */ 
+
 	
-//	@ManyToOne
-//	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
-//	@ForeignKey(name =  "FK_Vendas_Vendedor")
-//	private Vendedor idVendedor; 
-//	
+	@ManyToOne
+	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
+	@ForeignKey(name = "FK_idVendedor")
+	private Vendedor idVendedor; 
+
 	
 	@Column(name = "nomeVendedor", nullable = false)
 	private String nomeVendedor; 
@@ -49,6 +50,7 @@ public class Vendas implements Serializable{
 	
 	@Column(name = "valorVenda")
 	private float valorVenda; 
+	
 }
 
 
