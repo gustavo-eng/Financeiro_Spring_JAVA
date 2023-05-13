@@ -1,32 +1,55 @@
 package com.devtiro.Demo.App.entity;
 
 
-import lombok.Data;
+
 import lombok.Builder;
+import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import org.hibernate.annotations.ForeignKey;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
 
 
 @Data // cria os getters e setters 
 @AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 
 @Builder // para ajudar na criacao de objetos Vendas  
-@Entity //  para informar que é uma entidade de banco de dados 
 @NoArgsConstructor // para criar um construtor vazio 
 
-public class Vendas {
-	
-	private int idVenda; 
-	private int idVendedor; 
-	private String nomeVendedor; 
-	private Data dataVenda;
-	
-	/*  
-	 ID venda 
-	 ID vendedor
-	 Nome vendedor 
-	 Data 
-	 Valor  
-	 */
 
+@Entity //  para informar que é uma entidade de banco de dados
+public class Vendas implements Serializable{
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int idVenda; 
+	/* chave estrangeira  */ 
+	
+//	@ManyToOne
+//	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
+//	@ForeignKey(name =  "FK_Vendas_Vendedor")
+//	private Vendedor idVendedor; 
+//	
+	
+	@Column(name = "nomeVendedor", nullable = false)
+	private String nomeVendedor; 
+	
+	@Column(name = "dataVenda")
+	private Date dataVenda;
+	
+	@Column(name = "valorVenda")
+	private float valorVenda; 
 }
+
+
+

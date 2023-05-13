@@ -6,7 +6,11 @@ import lombok.Builder;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -14,23 +18,24 @@ import lombok.NoArgsConstructor;
 @Data // cria os getters e setters 
 @AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 
 @Builder // para ajudar na criacao de objetos Vendas  
-@Entity //  para informar que é uma entidade de banco de dados 
 @NoArgsConstructor // para criar um construtor vazio 
 
+@Entity //  para informar que é uma entidade de banco de dados 
 public class Vendedor implements Serializable{
-	/* 
-	  id
-	  nome 
-	  lista de vendas  (vai estar no banco ??)
-	  total de vendas 
-	  media de vendas diaria 
-	 */
 	
+		
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO) // geracao automatica de ID 
 	private int idVendedor; 
-	private String nomeVendedor; 
-	private int qtdVendas; 
-	private float mediaVenda;
 	
+	@Column(name = "nomeVendedor", nullable = false)
+	private String nomeVendedor; 
+	
+	@Column(name = "qtdVendas")
+	private int qtdVendas; 
+	
+	@Column(name = "mediaVendas")
+	private float mediaVendas;	
 	
 
 }
