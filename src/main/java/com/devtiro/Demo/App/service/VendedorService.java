@@ -17,6 +17,9 @@ public class VendedorService {
 	private VendedorRepository vendedorRepository; 
 	
 	
+	// neste local provavel mente o save sera para a entidade Venda 
+	// ou tbm tera outro sabe que vai levar para a tabela vendas la no banco de dados 
+	// aqui sera feito a venda 
 	public Vendedor gerarVenda(Vendedor vendedor) {
 		return vendedorRepository.save(vendedor);
 	}

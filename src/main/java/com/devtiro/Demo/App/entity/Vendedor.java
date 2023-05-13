@@ -26,16 +26,16 @@ public class Vendedor implements Serializable{
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // geracao automatica de ID 
-	private Integer idVendedor; 
+	public Integer idVendedor; 
 	
 	@Column(name = "nomeVendedor", nullable = false)
-	private String nomeVendedor; 
+	public String nomeVendedor; 
 	
 	@Column(name = "qtdVendas")
-	private int qtdVendas; 
+	public int qtdVendas; 
 	
 	@Column(name = "mediaVendas")
-	private float mediaVendas;	
+	public float mediaVendas;	
 	
 
 }
