@@ -33,7 +33,7 @@ public class Vendas implements Serializable{
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int idVenda; 
+	private Integer idVenda; 
 
 	
 	@ManyToOne
