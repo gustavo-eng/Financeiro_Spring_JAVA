@@ -6,34 +6,59 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.devtiro.Demo.App.entity.Vendas;
 import com.devtiro.Demo.App.entity.Vendedor;
 import com.devtiro.Demo.App.repository.VendedorRepository;
+import com.devtiro.Demo.App.repository.VendasRepository;
 
 @Service
 public class VendedorService {
 	
+	@Autowired
+	public VendasRepository vendasRepository;
 	
 	@Autowired
-	private VendedorRepository vendedorRepository; 
+	public VendedorRepository vendedorRepository; 
 	
+	// ID_VENDA  	DATA_VENDA  	NOME_VENDEDOR  	VALOR_VENDA  	ID_VENDEDOR  
 	
 	// neste local provavel mente o save sera para a entidade Venda 
 	// ou tbm tera outro sabe que vai levar para a tabela vendas la no banco de dados 
 	// aqui sera feito a venda 
+	//Tera outro parametro chamado ( Vendas vandas) 
+	// concatenar atributos de vendedor com a classe vendas para colocar no banco 
+//	public Vendedor gerarVenda(Vendedor vendedor) {
+//		return vendedorRepository.save(vendedor);
+//	}
+	
+//	public Optional<Vendas> searchPorId(Integer id) {
+//		return vendasRepository.findById(id);	
+//	}
+//	
+	public Vendas vender(Vendedor vendedor, Vendas vendas) {
+		vendas.idVendedor = vendedor.idVendedor; 
+		vendas.nomeVendedor = vendedor.nomeVendedor;		
+		return vendasRepository.save(vendas);
+	}
+			
+	
 	public Vendedor gerarVenda(Vendedor vendedor) {
+		
 		return vendedorRepository.save(vendedor);
 	}
-	
+
 	//save pode ser utilizado para salvar um vendedor e tbm atualizar um vendedor 
 	// se for novo ele vai persistir, caso o contrario sera atualizado 
 	
 	// lista todos os clientes 
+	
+	// --------------------------------------------
 	public List<Vendedor> listaVendedor() {
 		return vendedorRepository.findAll();
 	}
 	
 	public Optional<Vendedor> buscarPorId(Integer id) {
-		return vendedorRepository.findById(id);
+		return vendedorRepository.findById(id);	
 	}
 	
 	public void removerPorId(Integer id) {

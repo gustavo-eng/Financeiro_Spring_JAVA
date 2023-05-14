@@ -31,25 +31,32 @@ import org.hibernate.*;
 @Entity //  para informar que é uma entidade de banco de dados
 public class Vendas implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idVenda; 
+	public Integer idVenda; 
 
 	
 	@ManyToOne
 	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
 	@ForeignKey(name = "FK_idVendedor")
-	private Vendedor idVendedor; 
+	public Integer idVendedor; 
 
 	
 	@Column(name = "nomeVendedor", nullable = false)
-	private String nomeVendedor; 
+	public String nomeVendedor; 
 	
 	@Column(name = "dataVenda")
-	private Date dataVenda;
+	public Date dataVenda;
 	
 	@Column(name = "valorVenda")
-	private float valorVenda; 
+	public float valorVenda; 
+	
+	
 	
 }
 
