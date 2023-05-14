@@ -29,7 +29,8 @@ public class VendasController {
 	private VendasService vendasService;
 	
 	// lista todas as vendas 
-	@GetMapping("/listaVendas")
+//	@GetMapping("/listaVendas")
+	
 	
 	@GetMapping("/escreve")
 	public String escreve(@RequestParam(value = "name", defaultValue = "escreve") String name) {

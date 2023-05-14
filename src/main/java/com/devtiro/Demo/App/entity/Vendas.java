@@ -41,9 +41,11 @@ public class Vendas implements Serializable{
 	public Integer idVenda; 
 
 	
-	@ManyToOne
-	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
-	@ForeignKey(name = "FK_idVendedor")
+//	@ManyToOne
+//	@JoinColumn(name = "idVendedor", referencedColumnName = "idVendedor", nullable = false)
+//	@ForeignKey(name = "FK_idVendedor")
+	
+	@Column(name = "idVendedor", nullable = false)
 	public Integer idVendedor; 
 
 	

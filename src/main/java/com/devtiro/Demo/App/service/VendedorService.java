@@ -11,6 +11,9 @@ import com.devtiro.Demo.App.entity.Vendedor;
 import com.devtiro.Demo.App.repository.VendedorRepository;
 import com.devtiro.Demo.App.repository.VendasRepository;
 
+
+import java.util.Calendar;
+import java.util.Date;
 @Service
 public class VendedorService {
 	
@@ -31,19 +34,21 @@ public class VendedorService {
 //		return vendedorRepository.save(vendedor);
 //	}
 	
-//	public Optional<Vendas> searchPorId(Integer id) {
-//		return vendasRepository.findById(id);	
-//	}
+	public Optional<Vendas> searchPorId(Integer id) {
+		return vendasRepository.findById(id);	
+	}
 //	
-	public Vendas vender(Vendedor vendedor, Vendas vendas) {
+	public Vendas vender(Integer id,Vendedor vendedor) {
+		Vendas vendas = new Vendas();
 		vendas.idVendedor = vendedor.idVendedor; 
-		vendas.nomeVendedor = vendedor.nomeVendedor;		
+		vendas.nomeVendedor = vendedor.nomeVendedor;
+		vendas.valorVenda = 78;
+		vendas.dataVenda =  null; 
 		return vendasRepository.save(vendas);
 	}
 			
 	
 	public Vendedor gerarVenda(Vendedor vendedor) {
-		
 		return vendedorRepository.save(vendedor);
 	}
 

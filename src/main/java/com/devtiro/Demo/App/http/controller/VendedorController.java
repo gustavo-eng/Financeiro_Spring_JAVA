@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.devtiro.Demo.App.entity.Vendas;
 import com.devtiro.Demo.App.entity.Vendedor;
+import com.devtiro.Demo.App.service.VendasService;
 import com.devtiro.Demo.App.service.VendedorService;
 
 // definicao de rotas e controller 
@@ -38,6 +40,12 @@ public class VendedorController {
 	public Vendedor salvar(@RequestBody Vendedor vendedor) {
 		System.out.println("Entrou no post ------- ");
 		return vendedorService.gerarVenda(vendedor);
+	}
+	
+	@PostMapping("/vendendo")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Vendas  vender(@RequestBody Vendedor vendedor) {
+		return vendedorService.vender(1, vendedor);
 	}
 	
 	@GetMapping 
