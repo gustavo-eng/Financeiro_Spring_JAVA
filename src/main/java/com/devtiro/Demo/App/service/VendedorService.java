@@ -14,6 +14,9 @@ import com.devtiro.Demo.App.repository.VendasRepository;
 
 import java.util.Calendar;
 import java.util.Date;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 @Service
 public class VendedorService {
 	
@@ -39,16 +42,23 @@ public class VendedorService {
 	}
 //	melhorar !!!!
 //  Toda vez que gera uma venda estancia uma venda 
-	public Vendas vender(Integer id,Vendedor vendedor) {
+	public Vendas 	criarVenda(Integer id, Vendas sells ) {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 		Vendedor vendedorIdentificado = vendedorResponsavel.get();
-		
+		// ---- formatacao data ---- SEPARAR
+		Date dataAtual = new Date();
+		SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
+		String dataFormatada = formatoBrasil.format(dataAtual);
+		// ---- formatacao data ---- SEPARAR
 		Vendas vendas = new Vendas();
+		
 		vendas.idVendedor = id;  // precisar ser consultado 
 		vendas.nomeVendedor = vendedorIdentificado.nomeVendedor;
-		vendas.valorVenda = 78;
-		vendas.dataVenda =  new Date(); 
+		vendas.valorVenda = sells.valorVenda;
+		vendas.dataVenda =  dataFormatada; 
+		
 		return vendasRepository.save(vendas);
+		
 	}
 			
 	

@@ -44,8 +44,8 @@ public class VendedorController {
 	
 	@PostMapping("/vendendo/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Vendas  vender(@PathVariable("id")Integer id , @RequestBody Vendedor vendedor) {
-		return vendedorService.vender(id, vendedor);
+	public Vendas  criarVenda(@PathVariable("id")Integer id , @RequestBody Vendas vendas) {
+		return vendedorService.criarVenda(id, vendas);
 	}
 	
 	@GetMapping 

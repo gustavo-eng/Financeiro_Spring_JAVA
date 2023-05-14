@@ -52,8 +52,9 @@ public class Vendas implements Serializable{
 	@Column(name = "nomeVendedor", nullable = false)
 	public String nomeVendedor; 
 	
+	
 	@Column(name = "dataVenda")
-	public Date dataVenda;
+	public String dataVenda;
 	
 	@Column(name = "valorVenda")
 	public float valorVenda; 
