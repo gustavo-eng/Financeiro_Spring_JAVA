@@ -37,13 +37,17 @@ public class VendedorService {
 	public Optional<Vendas> searchPorId(Integer id) {
 		return vendasRepository.findById(id);	
 	}
-//	
+//	melhorar !!!!
+//  Toda vez que gera uma venda estancia uma venda 
 	public Vendas vender(Integer id,Vendedor vendedor) {
+		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
+		Vendedor vendedorIdentificado = vendedorResponsavel.get();
+		
 		Vendas vendas = new Vendas();
-		vendas.idVendedor = vendedor.idVendedor; 
-		vendas.nomeVendedor = vendedor.nomeVendedor;
+		vendas.idVendedor = id;  // precisar ser consultado 
+		vendas.nomeVendedor = vendedorIdentificado.nomeVendedor;
 		vendas.valorVenda = 78;
-		vendas.dataVenda =  null; 
+		vendas.dataVenda =  new Date(); 
 		return vendasRepository.save(vendas);
 	}
 			

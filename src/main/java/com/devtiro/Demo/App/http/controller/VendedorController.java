@@ -42,10 +42,10 @@ public class VendedorController {
 		return vendedorService.gerarVenda(vendedor);
 	}
 	
-	@PostMapping("/vendendo")
+	@PostMapping("/vendendo/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Vendas  vender(@RequestBody Vendedor vendedor) {
-		return vendedorService.vender(1, vendedor);
+	public Vendas  vender(@PathVariable("id")Integer id , @RequestBody Vendedor vendedor) {
+		return vendedorService.vender(id, vendedor);
 	}
 	
 	@GetMapping 
@@ -73,23 +73,7 @@ public class VendedorController {
 		});
 	}
 	
-//	@PutMapping("/{id}")
-//	@ResponseStatus(HttpStatus.NO_CONTENT)
-//	public void atualizarVendedor(@PathVariable("id") Integer id, @RequestBody Vendedor vendedor) {
-//		System.out.println("------------ Entrou em atualizarVendedor ------------");
-//		vendedorService.buscarPorId(id)
-//		.map(sellerBase -> {
-//			System.out.println("sellerBase ->  " + sellerBase);
-//			System.out.println("------------ Entrou em map(sellerBase) ------------");
-//			modelMapper.map(vendedor, sellerBase); // map esta pegando todos os atributos que estao na classe Vendedor
-//			vendedorService.gerarVenda(sellerBase);
-//			System.out.println("------------ passou MODELMAPPER.map()  ------------");
-//			// como nome, id, qtdVendas e idVendedor e adicionando sellerBase 
-//			System.out.println("------------ passou vendedorService.gerarVendas ------------");
-//			return Void.TYPE; // tirar 
-//		}).orElseThrow(() -> new ResponseStatusException (HttpStatus.NOT_FOUND, "Vendedor nao encontrado"));
-//		
-//	}
+
 
 		
 	
