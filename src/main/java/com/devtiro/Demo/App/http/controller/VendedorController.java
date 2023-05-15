@@ -1,6 +1,7 @@
 package com.devtiro.Demo.App.http.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -48,6 +50,8 @@ public class VendedorController {
 		return vendedorService.criarVenda(id, vendas);
 	}
 	
+	
+	
 	@GetMapping 
 	@ResponseStatus(HttpStatus.OK)  // 200 
 	public List<Vendedor> listVendedor() {
@@ -83,9 +87,25 @@ public class VendedorController {
     	vendedorService.atualizaVendedor(id, vendedor);
     }
 	
+	// --- ok ok ok 
+	@PostMapping("/mediaVendedor/{id}") 
+	@ResponseStatus(HttpStatus.OK)
+	public void  calculaMediaVendedor(
+			@PathVariable ("id") Integer id,
+			@RequestParam(value = "periodoInicial", defaultValue = "14/05/2023") String periodoInicial,
+			@RequestParam(value = "periodoFinal", defaultValue = "18/05/2023") String periodoFinal
+			) {
+		vendedorService.calcularMediaPeriodica(id, periodoInicial, periodoFinal);
+	 }
+	
+	
 	
 }
-
+/*
+ * @PathVariable ("periodoInicial") String periodoInicial,
+			@PathVariable ("periodoFinal") String periodoFinal
+ * 
+ */
 
 
 

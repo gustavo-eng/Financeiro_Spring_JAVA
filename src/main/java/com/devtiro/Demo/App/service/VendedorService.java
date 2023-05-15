@@ -11,12 +11,13 @@ import com.devtiro.Demo.App.entity.Vendedor;
 import com.devtiro.Demo.App.repository.VendedorRepository;
 import com.devtiro.Demo.App.repository.VendasRepository;
 
-
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 @Service
 public class VendedorService {
 	
@@ -35,7 +36,7 @@ public class VendedorService {
 		return vendasRepository.findById(id);	
 	}
 
-//  Toda vez que gera uma venda estancia uma venda 
+//  Gera venda e atualiza vendedor
 	public Vendas 	criarVenda(Integer id, Vendas sells ) {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 		Vendedor vendedorIdentificado = vendedorResponsavel.get();
@@ -52,19 +53,23 @@ public class VendedorService {
 		vendas.nomeVendedor = vendedorIdentificado.nomeVendedor;
 		vendas.valorVenda = sells.valorVenda;
 		vendas.dataVenda =  dataFormatada; 
-		
-		
-		if(vendedorResponsavel.isPresent()) {
-			vendedorIdentificado.qtdVendas += 1; 
-		}
-		
+		// consumir funcao de vendas aqui 
+	
+		if(vendedorResponsavel.isPresent()) { // colocar como if global no escopo da funcao
+			vendedorIdentificado.qtdVendas += 1; 	
+		} 
 		
 		return vendasRepository.save(vendas);
-		
 	}
-			
+	
+	// A fazer depois que conseguir retornar lista de todos 	
+	public float mediaVendas(String periodo) { 
+		return (float)32.23 ;  
+	}
+	
 	
 	public Vendedor cadastrarVendedor(Vendedor vendedor) {
+		System.out.println("CADASTRANDO VENDEDOR_");
 		return vendedorRepository.save(vendedor);
 	}
 
@@ -95,8 +100,117 @@ public class VendedorService {
 		}
 	}
 		
+	// ------------ OK OK OK 
+	public void  calcularMediaPeriodica(Integer id, String periodoInicial, String periodoFinal) {
+		System.out.println("___00 PERIODO 00__ (periodoInicial)");
+		System.out.println(periodoInicial);
+		System.out.println("___00 PERIODO 00__ (periodoFinal)");
+		System.out.println(periodoFinal);
+		List<Vendas> vendasDoVendedor =  vendasRepository.findAll(); 
+		List<Vendas> vendaFiltrada = new ArrayList<>();
+		List<Integer> qtdVendasPorDataValidada = new ArrayList<>();
+		List<Integer> qtdTeste = new ArrayList<>();
+		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
+		Vendedor vendedorIdentificado = vendedorResponsavel.get();
+		
+		
+		System.out.println("---- vendas por vendedor --- ENTROU em for(Vendas v : vendasDoVendedor) ");
+		for(Vendas v : vendasDoVendedor) { 
+			if(v.idVendedor.equals(id)) { // unico vendedor a ser analisado 
+			    System.out.println("<- v.idVendedor.equals(id) ->");
+				vendaFiltrada.add(v);
+				System.out.println("Antes de vendaNoPeriodo");
+				System.out.println("v.dataVenda ---------> " + v.dataVenda);
+				boolean vendaNoPeriodo = isDateInRange(periodoInicial, periodoFinal, v.dataVenda); 
+				System.out.println("Depois de vendaNoPeriodo");
+				if(vendaNoPeriodo) { 
+				   System.out.println("Entrou em  if(vendaNoPeriodo)");
+				   System.out.println("Imprimindo v" + v.nomeVendedor);
+				   qtdVendasPorDataValidada.add(contarVendasMesmaData(vendaFiltrada, v.dataVenda));
+				}
+			}
+		}
+		float soma = 0; 
+		for (int quantidade : qtdVendasPorDataValidada) {
+			soma += quantidade;
+		}
+		vendedorIdentificado.mediaVendas = (float)soma/qtdVendasPorDataValidada.size();
+		System.out.println("vendedorIdentificado.mediaVendas ===> " + vendedorIdentificado.mediaVendas);
+		System.out.println("_____________| _________");
+		
+		System.out.println("qtdVendasPorDataValidada.size() -->" + qtdVendasPorDataValidada.size());
+		if (vendedorResponsavel.isPresent()) {
+			Vendedor vendedor = vendedorResponsavel.get();
+			System.out.println("(float)soma/(int) qtdVendasPorDataValidada.size() --> "+ (float) soma/ qtdVendasPorDataValidada.size());
+			vendedor.mediaVendas = (float)soma/(int) qtdVendasPorDataValidada.size();
+			
+			System.out.println("vendedor.mediaVendas == " + vendedor.mediaVendas);
+			vendedorRepository.save(vendedor);
+		}
+		
+//		vendedorRepository.save(vendedorIdentificado);
+//		return (float)soma/qtdVendasPorDataValidada.size(); 
+	}
+	
+	// Utils ... 
+	public  int contarVendasMesmaData(List<Vendas> vendas, String dataVenda) {
+	    int quantidade = 0;
+	    System.out.println("Entrou em contarVendasMesmaData  --> ");
+	    for (Vendas venda : vendas) {
+	        if (venda.dataVenda.equals(dataVenda)) {
+	        	System.out.println("Quantidade *****-> " + quantidade);
+	            quantidade++;
+	        }
+	    }
+	    return quantidade;
+	}
+	
+	public boolean isDateInRange(String dataInicio, String dataFim, String dataAvaliada) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date inicio = dateFormat.parse(dataInicio);
+            Date fim = dateFormat.parse(dataFim);
+            Date avaliada = dateFormat.parse(dataAvaliada);
+
+            return avaliada.compareTo(inicio) >= 0 && avaliada.compareTo(fim) <= 0;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+	
+	// ------------ OK OK OK 
+	
 }
 
+
+//public Vendedor atualizaVendedor(Integer id, Vendedor vendedorAtualizado) { 
+//	Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
+//	if(vendedorAntigo.isPresent()) {
+//		Vendedor vendedor = vendedorAntigo.get();
+//		vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
+//		vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
+//		vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
+//		
+//		return vendedorRepository.save(vendedor);
+//	} else {
+//		throw new RuntimeException("Vendedor não encontrado");
+//	}
+//}
+
+//public Vendedor atualizaVendedor(Integer id, Vendedor vendedorAtualizado) { 
+//	Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
+//	if(vendedorAntigo.isPresent()) {
+//		Vendedor vendedor = vendedorAntigo.get();
+//		vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
+//		vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
+//		vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
+//		
+//		return vendedorRepository.save(vendedor);
+//	} else {
+//		throw new RuntimeException("Vendedor não encontrado");
+//	}
+//}
 
 
 

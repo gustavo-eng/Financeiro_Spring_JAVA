@@ -12,5 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VendasRepository extends JpaRepository<Vendas, Integer> {
 	
+//	Vendas findByIdVendedor(Integer idVendedor);
 	
 }
