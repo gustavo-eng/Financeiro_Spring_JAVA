@@ -26,13 +26,7 @@ public class VendedorService {
 	@Autowired
 	public VendedorRepository vendedorRepository; 
 	
-	// ID_VENDA  	DATA_VENDA  	NOME_VENDEDOR  	VALOR_VENDA  	ID_VENDEDOR  
-	
-	// neste local provavel mente o save sera para a entidade Venda 
-	// ou tbm tera outro sabe que vai levar para a tabela vendas la no banco de dados 
-	// aqui sera feito a venda 
-	//Tera outro parametro chamado ( Vendas vandas) 
-	// concatenar atributos de vendedor com a classe vendas para colocar no banco 
+
 //	public Vendedor gerarVenda(Vendedor vendedor) {
 //		return vendedorRepository.save(vendedor);
 //	}
@@ -40,16 +34,18 @@ public class VendedorService {
 	public Optional<Vendas> searchPorId(Integer id) {
 		return vendasRepository.findById(id);	
 	}
-//	melhorar !!!!
+
 //  Toda vez que gera uma venda estancia uma venda 
 	public Vendas 	criarVenda(Integer id, Vendas sells ) {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 		Vendedor vendedorIdentificado = vendedorResponsavel.get();
-		// ---- formatacao data ---- SEPARAR
+		
+		// ---- 
 		Date dataAtual = new Date();
 		SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
 		String dataFormatada = formatoBrasil.format(dataAtual);
-		// ---- formatacao data ---- SEPARAR
+		// ---- 
+		
 		Vendas vendas = new Vendas();
 		
 		vendas.idVendedor = id;  // precisar ser consultado 
@@ -57,21 +53,22 @@ public class VendedorService {
 		vendas.valorVenda = sells.valorVenda;
 		vendas.dataVenda =  dataFormatada; 
 		
+		
+		if(vendedorResponsavel.isPresent()) {
+			vendedorIdentificado.qtdVendas += 1; 
+		}
+		
+		
 		return vendasRepository.save(vendas);
 		
 	}
 			
 	
-	public Vendedor gerarVenda(Vendedor vendedor) {
+	public Vendedor cadastrarVendedor(Vendedor vendedor) {
 		return vendedorRepository.save(vendedor);
 	}
 
-	//save pode ser utilizado para salvar um vendedor e tbm atualizar um vendedor 
-	// se for novo ele vai persistir, caso o contrario sera atualizado 
 	
-	// lista todos os clientes 
-	
-	// --------------------------------------------
 	public List<Vendedor> listaVendedor() {
 		return vendedorRepository.findAll();
 	}

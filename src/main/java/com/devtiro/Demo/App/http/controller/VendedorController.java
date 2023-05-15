@@ -39,7 +39,7 @@ public class VendedorController {
 	@ResponseStatus(HttpStatus.CREATED) // resposta 201 
 	public Vendedor salvar(@RequestBody Vendedor vendedor) {
 		System.out.println("Entrou no post ------- ");
-		return vendedorService.gerarVenda(vendedor);
+		return vendedorService.cadastrarVendedor(vendedor);
 	}
 	
 	@PostMapping("/vendendo/{id}")
