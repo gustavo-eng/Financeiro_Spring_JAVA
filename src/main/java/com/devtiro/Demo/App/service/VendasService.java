@@ -31,8 +31,6 @@ public class VendasService {
 		return vendasRepository.findAll();
 	}
 	
-
-	
 	// Essa funcao buscar retornar apenas todas as vendas de um vendedor
 	public List<Vendas> vendasPorVendedor(Integer id){
 		List<Vendas> vendasDoVendedor =  vendasRepository.findAll(); 

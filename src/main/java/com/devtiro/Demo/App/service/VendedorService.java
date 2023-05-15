@@ -17,7 +17,7 @@ import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.concurrent.TimeUnit;
 @Service
 public class VendedorService {
 	
@@ -130,23 +130,34 @@ public class VendedorService {
 				}
 			}
 		}
+		long teste = calcularDiferencaEmDias(periodoInicial, periodoFinal);
+		System.out.println("Teste -> "+ teste);
+		if(vendedorResponsavel.isPresent()) {
+			Vendedor vendedor = vendedorResponsavel.get();
+			vendedor.mediaVendas = (int) qtdVendasPorDataValidada.size()/ (float) teste;
+			vendedorRepository.save(vendedor);
+		}
+		
+		
+		//sair (exclude)
 		float soma = 0; 
 		for (int quantidade : qtdVendasPorDataValidada) {
 			soma += quantidade;
+			System.out.println("Soma ----> 989898 ->  " + soma);
 		}
-		vendedorIdentificado.mediaVendas = (float)soma/qtdVendasPorDataValidada.size();
+		vendedorIdentificado.mediaVendas = (float)qtdVendasPorDataValidada.size()/(float)soma;
 		System.out.println("vendedorIdentificado.mediaVendas ===> " + vendedorIdentificado.mediaVendas);
 		System.out.println("_____________| _________");
 		
 		System.out.println("qtdVendasPorDataValidada.size() -->" + qtdVendasPorDataValidada.size());
-		if (vendedorResponsavel.isPresent()) {
-			Vendedor vendedor = vendedorResponsavel.get();
-			System.out.println("(float)soma/(int) qtdVendasPorDataValidada.size() --> "+ (float) soma/ qtdVendasPorDataValidada.size());
-			vendedor.mediaVendas = (float)soma/(int) qtdVendasPorDataValidada.size();
-			
-			System.out.println("vendedor.mediaVendas == " + vendedor.mediaVendas);
-			vendedorRepository.save(vendedor);
-		}
+//		if (vendedorResponsavel.isPresent()) {
+//			Vendedor vendedor = vendedorResponsavel.get();
+//			System.out.println("(float)soma/(int) qtdVendasPorDataValidada.size() --> "+ (float) soma/ qtdVendasPorDataValidada.size());
+//			vendedor.mediaVendas = (float)soma/(int) qtdVendasPorDataValidada.size();
+//			
+//			System.out.println("vendedor.mediaVendas == " + vendedor.mediaVendas);
+//			vendedorRepository.save(vendedor);
+//		}
 		
 //		vendedorRepository.save(vendedorIdentificado);
 //		return (float)soma/qtdVendasPorDataValidada.size(); 
@@ -177,40 +188,33 @@ public class VendedorService {
             e.printStackTrace();
             return false;
         }
+        
+        
     }
 	
+	
+	// MANTER
+	public long calcularDiferencaEmDias(String dataInicio, String dataFim) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date inicio = dateFormat.parse(dataInicio);
+            Date fim = dateFormat.parse(dataFim);
+
+            long diferencaEmMilissegundos = fim.getTime() - inicio.getTime();
+            long diferencaEmDias = TimeUnit.DAYS.convert(diferencaEmMilissegundos, TimeUnit.MILLISECONDS);
+            System.out.println("diferenca em dias  7777 --->" + diferencaEmDias);
+            return diferencaEmDias;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
 	// ------------ OK OK OK 
 	
 }
 
 
-//public Vendedor atualizaVendedor(Integer id, Vendedor vendedorAtualizado) { 
-//	Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
-//	if(vendedorAntigo.isPresent()) {
-//		Vendedor vendedor = vendedorAntigo.get();
-//		vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
-//		vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
-//		vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
-//		
-//		return vendedorRepository.save(vendedor);
-//	} else {
-//		throw new RuntimeException("Vendedor não encontrado");
-//	}
-//}
 
-//public Vendedor atualizaVendedor(Integer id, Vendedor vendedorAtualizado) { 
-//	Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
-//	if(vendedorAntigo.isPresent()) {
-//		Vendedor vendedor = vendedorAntigo.get();
-//		vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
-//		vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
-//		vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
-//		
-//		return vendedorRepository.save(vendedor);
-//	} else {
-//		throw new RuntimeException("Vendedor não encontrado");
-//	}
-//}
 
 
 
