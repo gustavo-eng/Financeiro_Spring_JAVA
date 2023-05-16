@@ -1,9 +1,9 @@
 package com.devtiro.Demo.App.http.controller;
 
 import java.util.List;
-import java.util.Optional;
+//import java.util.Optional;
 
-import org.modelmapper.ModelMapper;
+//import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.devtiro.Demo.App.entity.Vendas;
 import com.devtiro.Demo.App.entity.Vendedor;
-import com.devtiro.Demo.App.service.VendasService;
+//import com.devtiro.Demo.App.service.VendasService;
 import com.devtiro.Demo.App.service.VendedorService;
 
 // definicao de rotas e controller 
@@ -33,10 +33,8 @@ public class VendedorController {
 	private VendedorService vendedorService; 
 	
 	@Autowired
-	private ModelMapper modelMapper;
-	
-	// na PostMapping, automaticamente o @RequestBody esta pegando os dados e atributos da classe Vendedor
-	
+//	private ModelMapper modelMapper;
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) // resposta 201 
 	public Vendedor salvar(@RequestBody Vendedor vendedor) {
@@ -87,7 +85,7 @@ public class VendedorController {
     	vendedorService.atualizaVendedor(id, vendedor);
     }
 	
-	// --- ok ok ok 
+	
 	@PostMapping("/mediaVendedor/{id}") 
 	@ResponseStatus(HttpStatus.OK)
 	public void  calculaMediaVendedor(
@@ -97,15 +95,9 @@ public class VendedorController {
 			) {
 		vendedorService.calcularMediaPeriodica(id, periodoInicial, periodoFinal);
 	 }
-	
-	
-	
+		
 }
-/*
- * @PathVariable ("periodoInicial") String periodoInicial,
-			@PathVariable ("periodoFinal") String periodoFinal
- * 
- */
+
 
 
 

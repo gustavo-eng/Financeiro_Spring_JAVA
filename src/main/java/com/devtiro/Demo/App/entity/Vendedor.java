@@ -24,6 +24,8 @@ import lombok.NoArgsConstructor;
 public class Vendedor implements Serializable{
 	
 		
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // geracao automatica de ID 
 	public Integer idVendedor; 

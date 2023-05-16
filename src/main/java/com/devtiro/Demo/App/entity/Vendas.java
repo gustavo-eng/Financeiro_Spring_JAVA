@@ -6,21 +6,21 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+//import java.util.Date;
 
-import org.hibernate.annotations.ForeignKey;
+//import org.hibernate.annotations.ForeignKey;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+//import jakarta.persistence.JoinColumn;
+//import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import org.hibernate.*;
+//import org.hibernate.*;
 
 @Data // cria os getters e setters 
 @AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 
@@ -46,21 +46,59 @@ public class Vendas implements Serializable{
 //	@ForeignKey(name = "FK_idVendedor")
 	
 	@Column(name = "idVendedor", nullable = false)
-	public Integer idVendedor; 
+	private Integer idVendedor; 
 
 	
 	@Column(name = "nomeVendedor", nullable = false)
-	public String nomeVendedor; 
+	private String nomeVendedor; 
 	
 	
 	@Column(name = "dataVenda")
-	public String dataVenda;
+	private String dataVenda;
 	
 	@Column(name = "valorVenda")
-	public float valorVenda; 
+	private float valorVenda;
+
 	
-	
-	
+	public Integer getIdVenda() {
+		return idVenda;
+	}
+
+	public void setIdVenda(Integer idVenda) {
+		this.idVenda = idVenda;
+	}
+
+	public Integer getIdVendedor() {
+		return idVendedor;
+	}
+
+	public void setIdVendedor(Integer idVendedor) {
+		this.idVendedor = idVendedor;
+	}
+
+	public String getNomeVendedor() {
+		return nomeVendedor;
+	}
+
+	public void setNomeVendedor(String nomeVendedor) {
+		this.nomeVendedor = nomeVendedor;
+	}
+
+	public String getDataVenda() {
+		return dataVenda;
+	}
+
+	public void setDataVenda(String dataVenda) {
+		this.dataVenda = dataVenda;
+	}
+
+	public float getValorVenda() {
+		return valorVenda;
+	}
+
+	public void setValorVenda(float valorVenda) {
+		this.valorVenda = valorVenda;
+	} 
 	
 	
 }
