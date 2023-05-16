@@ -42,8 +42,6 @@ public class VendedorService {
 		// ---- 
 		
 		Vendas vendas = new Vendas();
-		
-		
 		vendas.setIdVendedor(id);
 		vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
 		vendas.setValorVenda(sells.getValorVenda());
@@ -127,7 +125,6 @@ public class VendedorService {
 	    int quantidade = 0;
 	    for (Vendas venda : vendas) {
 	        if (venda.getDataVenda().equals(dataVenda)) {
-	        	
 	            quantidade++;
 	        }
 	    }
@@ -169,16 +166,6 @@ public class VendedorService {
 
 	
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
