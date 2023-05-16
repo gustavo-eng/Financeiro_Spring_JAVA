@@ -26,6 +26,8 @@ public class VendedorService {
 	@Autowired
 	public VendedorRepository vendedorRepository; 
 	
+
+
 	
 	public Optional<Vendas> searchPorId(Integer id) {
 		return vendasRepository.findById(id);	
@@ -36,35 +38,35 @@ public class VendedorService {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 		Vendedor vendedorIdentificado = vendedorResponsavel.get();
 		
+		// ---- 
 		Date dataAtual = new Date();
 		SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
 		String dataFormatada = formatoBrasil.format(dataAtual);
-		 
+		// ---- 
 		
 		Vendas vendas = new Vendas();
-	
 		
 		
-//		vendas.idVendedor = id;  
-//		vendas.nomeVendedor = vendedorIdentificado.nomeVendedor;
-//		vendas.valorVenda = sells.valorVenda;
-//		vendas.dataVenda =  dataFormatada;  
-//
-		
-		vendas.setIdVendedor(id); 
-		vendas.setNomeVendedor(vendedorIdentificado.nomeVendedor);
+		vendas.setIdVendedor(id);
+		vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
 		vendas.setValorVenda(sells.getValorVenda());
 		vendas.setDataVenda(dataFormatada);
-		
+		 
 		if(vendedorResponsavel.isPresent()) { // colocar como if global no escopo da funcao
-			vendedorIdentificado.qtdVendas += 1; 	
+			vendedorIdentificado.setQtdVendas(1); 	
 		} 
 		
 		return vendasRepository.save(vendas);
 	}
 	
+	// A fazer depois que conseguir retornar lista de todos 	
+	public float mediaVendas(String periodo) { 
+		return (float)32.23 ;  
+	}
+	
 	
 	public Vendedor cadastrarVendedor(Vendedor vendedor) {
+		System.out.println("CADASTRANDO VENDEDOR_");
 		return vendedorRepository.save(vendedor);
 	}
 
@@ -85,9 +87,13 @@ public class VendedorService {
 		Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
 		if(vendedorAntigo.isPresent()) {
 			Vendedor vendedor = vendedorAntigo.get();
-			vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
-			vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
-			vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
+//			vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
+//			vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
+//			vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
+			
+			vendedor.setNomeVendedor(vendedorAtualizado.getNomeVendedor());
+			vendedor.setMediaVendas(vendedorAtualizado.getMediaVendas());
+			vendedor.setQtdVendas(vendedorAtualizado.getQtdVendas());
 			
 			return vendedorRepository.save(vendedor);
 		} else {
@@ -100,33 +106,37 @@ public class VendedorService {
 		List<Vendas> vendasDoVendedor =  vendasRepository.findAll(); 
 		List<Vendas> vendaFiltrada = new ArrayList<>();
 		List<Integer> qtdVendasPorDataValidada = new ArrayList<>();
-		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 
-			
+		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
+		
+
 		for(Vendas v : vendasDoVendedor) { 
-			
-			if(v.getIdVendedor().equals(id)) { 
+			if(v.getIdVendedor().equals(id)) { // unico vendedor a ser analisado 
 				vendaFiltrada.add(v);
-				boolean vendaNoPeriodo = isDateInRange(periodoInicial, periodoFinal,  v.getDataVenda()); 
-				if(vendaNoPeriodo) {
-				   qtdVendasPorDataValidada.add(contarVendasMesmaData(vendaFiltrada,  v.getDataVenda()));
+				
+				boolean vendaNoPeriodo = isDateInRange(periodoInicial, periodoFinal, v.getDataVenda()); 
+				if(vendaNoPeriodo) { 
+				   qtdVendasPorDataValidada.add(contarVendasMesmaData(vendaFiltrada, v.getDataVenda()));
 				}
 			}
 		}
-		long periodo = calcularDiferencaEmDias(periodoInicial, periodoFinal);
+		long diferencaDias = calcularDiferencaEmDias(periodoInicial, periodoFinal);
+		
 		if(vendedorResponsavel.isPresent()) {
 			Vendedor vendedor = vendedorResponsavel.get();
-			vendedor.mediaVendas = (int) qtdVendasPorDataValidada.size()/ (float) periodo;
+			vendedor.setMediaVendas((int) qtdVendasPorDataValidada.size()/ (float) diferencaDias);
+//			vendedor.mediaVendas = (int) qtdVendasPorDataValidada.size()/ (float) diferencaDias;
 			vendedorRepository.save(vendedor);
-		}
+		}	
+		
 	}
 	
 	// Utils ... 
 	public  int contarVendasMesmaData(List<Vendas> vendas, String dataVenda) {
 	    int quantidade = 0;
 	    for (Vendas venda : vendas) {
-	    	
 	        if (venda.getDataVenda().equals(dataVenda)) {
+	        	
 	            quantidade++;
 	        }
 	    }
@@ -148,14 +158,18 @@ public class VendedorService {
         
         
     }
+	
+	
+	// MANTER
 	public long calcularDiferencaEmDias(String dataInicio, String dataFim) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date inicio = dateFormat.parse(dataInicio);
             Date fim = dateFormat.parse(dataFim);
-            
+
             long diferencaEmMilissegundos = fim.getTime() - inicio.getTime();
             long diferencaEmDias = TimeUnit.DAYS.convert(diferencaEmMilissegundos, TimeUnit.MILLISECONDS);
+       
             return diferencaEmDias;
         } catch (ParseException e) {
             e.printStackTrace();

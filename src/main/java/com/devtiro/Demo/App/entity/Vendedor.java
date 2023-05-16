@@ -23,23 +23,56 @@ import lombok.NoArgsConstructor;
 @Entity //  para informar que é uma entidade de banco de dados 
 public class Vendedor implements Serializable{
 	
-		
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 7699134081231408535L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) // geracao automatica de ID 
-	public Integer idVendedor; 
+	private Integer idVendedor; 
 	
 	@Column(name = "nomeVendedor", nullable = false)
-	public String nomeVendedor; 
+	private String nomeVendedor; 
 	
 	@Column(name = "qtdVendas")
-	public int qtdVendas; 
+	private int qtdVendas = 0; 
 	
 	@Column(name = "mediaVendas")
-	public float mediaVendas;	
-	
+	private float mediaVendas;
 
+	public Integer getIdVendedor() {
+		return idVendedor;
+	}
+
+	public void setIdVendedor(Integer idVendedor) {
+		this.idVendedor = idVendedor;
+	}
+
+	public String getNomeVendedor() {
+		return nomeVendedor;
+	}
+
+	public void setNomeVendedor(String nomeVendedor) {
+		this.nomeVendedor = nomeVendedor;
+	}
+
+	public int getQtdVendas() {
+		return qtdVendas;
+	}
+
+	public void setQtdVendas(int qtdVendas) {
+		this.qtdVendas += qtdVendas;
+	}
+
+	public float getMediaVendas() {
+		return mediaVendas;
+	}
+
+	public void setMediaVendas(float mediaVendas) {
+		this.mediaVendas = mediaVendas;
+	}	
+	
+	
+	
 }
 
 
