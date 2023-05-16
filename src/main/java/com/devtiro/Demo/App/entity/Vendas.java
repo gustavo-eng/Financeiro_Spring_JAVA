@@ -6,9 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-//import java.util.Date;
 
-//import org.hibernate.annotations.ForeignKey;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +18,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-//import org.hibernate.*;
+
 
 @Data // cria os getters e setters 
 @AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 

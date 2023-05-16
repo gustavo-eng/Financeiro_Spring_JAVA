@@ -27,13 +27,10 @@ public class VendedorService {
 	public VendedorRepository vendedorRepository; 
 	
 
-
-	
 	public Optional<Vendas> searchPorId(Integer id) {
 		return vendasRepository.findById(id);	
 	}
 
-//  Gera venda e atualiza vendedor
 	public Vendas 	criarVenda(Integer id, Vendas sells ) {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
 		Vendedor vendedorIdentificado = vendedorResponsavel.get();
@@ -59,10 +56,7 @@ public class VendedorService {
 		return vendasRepository.save(vendas);
 	}
 	
-	// A fazer depois que conseguir retornar lista de todos 	
-	public float mediaVendas(String periodo) { 
-		return (float)32.23 ;  
-	}
+	
 	
 	
 	public Vendedor cadastrarVendedor(Vendedor vendedor) {
@@ -87,9 +81,6 @@ public class VendedorService {
 		Optional<Vendedor> vendedorAntigo = vendedorRepository.findById(id);
 		if(vendedorAntigo.isPresent()) {
 			Vendedor vendedor = vendedorAntigo.get();
-//			vendedor.nomeVendedor  = vendedorAtualizado.nomeVendedor; 
-//			vendedor.mediaVendas  = vendedorAtualizado.mediaVendas;
-//			vendedor.qtdVendas = vendedorAtualizado.qtdVendas;
 			
 			vendedor.setNomeVendedor(vendedorAtualizado.getNomeVendedor());
 			vendedor.setMediaVendas(vendedorAtualizado.getMediaVendas());
@@ -125,7 +116,7 @@ public class VendedorService {
 		if(vendedorResponsavel.isPresent()) {
 			Vendedor vendedor = vendedorResponsavel.get();
 			vendedor.setMediaVendas((int) qtdVendasPorDataValidada.size()/ (float) diferencaDias);
-//			vendedor.mediaVendas = (int) qtdVendasPorDataValidada.size()/ (float) diferencaDias;
+
 			vendedorRepository.save(vendedor);
 		}	
 		
@@ -160,7 +151,6 @@ public class VendedorService {
     }
 	
 	
-	// MANTER
 	public long calcularDiferencaEmDias(String dataInicio, String dataFim) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
