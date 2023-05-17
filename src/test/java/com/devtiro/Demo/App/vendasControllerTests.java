@@ -38,5 +38,39 @@ public class vendasControllerTests {
 		List<Vendas> vendasList = vendasService.vendasRepository.findAll();
 		assertThat(vendasList).isEmpty();
 	}
+
+	@DisplayName("Teste dos getters e setters da classe Vendas")
+    @Test
+    public void testGettersAndSetters() {
+        Vendas vendas = new Vendas();
+
+        // Define os valores de teste
+        Integer idVenda = 1;
+        Integer idVendedor = 2;
+        String nomeVendedor = "xBrain";
+        String dataVenda = "17/05/2023";
+        float valorVenda = 100.0f;
+
+        // Configura os valores usando os setters
+        vendas.setIdVenda(idVenda);
+        vendas.setIdVendedor(idVendedor);
+        vendas.setNomeVendedor(nomeVendedor);
+        vendas.setDataVenda(dataVenda);
+        vendas.setValorVenda(valorVenda);
+
+        // Verifica se os valores estão corretos usando os getters
+        assertThat(vendas.getIdVenda()).isEqualTo(idVenda);
+        assertThat(vendas.getIdVendedor()).isEqualTo(idVendedor);
+        assertThat(vendas.getNomeVendedor()).isEqualTo(nomeVendedor);
+        assertThat(vendas.getDataVenda()).isEqualTo(dataVenda);
+        assertThat(vendas.getValorVenda()).isEqualTo(valorVenda);
+    }
+	
 	
 }
+
+
+
+
+
+
