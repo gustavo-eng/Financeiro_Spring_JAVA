@@ -32,10 +32,8 @@ public class VendedorController {
 	
 	
 	
-	// na PostMapping, automaticamente o @RequestBody esta pegando os dados e atributos da classe Vendedor
-	
 	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED) // resposta 201 
+	@ResponseStatus(HttpStatus.CREATED) 
 	public Vendedor salvar(@RequestBody Vendedor vendedor) {
 		System.out.println("Entrou no post ------- ");
 		return vendedorService.cadastrarVendedor(vendedor);
@@ -55,7 +53,7 @@ public class VendedorController {
 		return vendedorService.listaVendedor();
 	}
 
-	//Consultar vendedor por id 
+
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Vendedor buscarVendedorPorId(@PathVariable("id")Integer id) {
@@ -84,7 +82,7 @@ public class VendedorController {
     	vendedorService.atualizaVendedor(id, vendedor);
     }
 	
-	// --- ok ok ok 
+
 	@PostMapping("/mediaVendedor/{id}") 
 	@ResponseStatus(HttpStatus.OK)
 	public void  calculaMediaVendedor(

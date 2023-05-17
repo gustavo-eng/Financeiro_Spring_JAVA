@@ -15,12 +15,12 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 
-@Data // cria os getters e setters 
-@AllArgsConstructor // criar construtor com as propriedades que criarmos de vendas 
-@Builder // para ajudar na criacao de objetos Vendas  
-@NoArgsConstructor // para criar um construtor vazio 
+@Data  
+@AllArgsConstructor 
+@Builder 
+@NoArgsConstructor 
 
-@Entity //  para informar que é uma entidade de banco de dados 
+@Entity 
 public class Vendedor implements Serializable{
 	
 
@@ -70,7 +70,6 @@ public class Vendedor implements Serializable{
 	public void setMediaVendas(float mediaVendas) {
 		this.mediaVendas = mediaVendas;
 	}	
-	
 	
 	
 }

@@ -31,32 +31,34 @@ public class VendedorService {
 		return vendasRepository.findById(id);	
 	}
 
-	public Vendas 	criarVenda(Integer id, Vendas sells ) {
-		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
-		Vendas vendas = new Vendas();
-		if(vendedorResponsavel.isPresent()) { // colocar como if global no escopo da funcao
-			Vendedor vendedorIdentificado = vendedorResponsavel.get();
-		
-		// ---- 
-			Date dataAtual = new Date();
-			SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
-			String dataFormatada = formatoBrasil.format(dataAtual);
-		// ---- 
-		
-			vendas.setIdVendedor(id);
-			vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
-			vendas.setValorVenda(sells.getValorVenda());
-			vendas.setDataVenda(dataFormatada);
-			 
-			vendedorIdentificado.setQtdVendas(1); 	
-		} 
-		
-		return vendasRepository.save(vendas);
+	public Vendas criarVenda(Integer id, Vendas sells) {
+	    try {
+	        Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
+	        Vendas vendas = new Vendas();
+	        if (vendedorResponsavel.isPresent()) {
+	            Vendedor vendedorIdentificado = vendedorResponsavel.get();
+
+	          
+	            Date dataAtual = new Date();
+	            SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
+	            String dataFormatada = formatoBrasil.format(dataAtual);
+	         
+
+	            vendas.setIdVendedor(id);
+	            vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
+	            vendas.setValorVenda(sells.getValorVenda());
+	            vendas.setDataVenda(dataFormatada);
+
+	            vendedorIdentificado.setQtdVendas(1);
+	        }
+
+	        return vendasRepository.save(vendas);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
-	
-	
-	
-	
+
 	public Vendedor cadastrarVendedor(Vendedor vendedor) {
 		System.out.println("CADASTRANDO VENDEDOR_");
 		return vendedorRepository.save(vendedor);
