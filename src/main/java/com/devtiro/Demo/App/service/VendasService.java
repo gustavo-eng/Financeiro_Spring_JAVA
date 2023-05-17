@@ -11,15 +11,7 @@ import org.springframework.stereotype.Service;
 import com.devtiro.Demo.App.entity.Vendas;
 import com.devtiro.Demo.App.repository.VendasRepository;
 
-// --- vendedor -- 
 
-//import com.devtiro.Demo.App.entity.Vendedor;
-//import com.devtiro.Demo.App.repository.VendedorRepository;
-
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import com.devtiro.Demo.App.repository.VendedorRepository;
 @Service
 public class VendasService {
 
@@ -44,7 +36,7 @@ public class VendasService {
 		}
 		
 		return vendaFiltrada; // [{}, {}]
-//		return Optional.ofNullable(vendaFiltrada.isEmpty() ? null : vendaFiltrada.get(0));
+
 	}
 	
 	

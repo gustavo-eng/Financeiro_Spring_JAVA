@@ -33,21 +33,21 @@ public class VendedorService {
 
 	public Vendas 	criarVenda(Integer id, Vendas sells ) {
 		Optional<Vendedor> vendedorResponsavel = vendedorRepository.findById(id);
-		Vendedor vendedorIdentificado = vendedorResponsavel.get();
-		
-		// ---- 
-		Date dataAtual = new Date();
-		SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
-		String dataFormatada = formatoBrasil.format(dataAtual);
-		// ---- 
-		
 		Vendas vendas = new Vendas();
-		vendas.setIdVendedor(id);
-		vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
-		vendas.setValorVenda(sells.getValorVenda());
-		vendas.setDataVenda(dataFormatada);
-		 
 		if(vendedorResponsavel.isPresent()) { // colocar como if global no escopo da funcao
+			Vendedor vendedorIdentificado = vendedorResponsavel.get();
+		
+		// ---- 
+			Date dataAtual = new Date();
+			SimpleDateFormat formatoBrasil = new SimpleDateFormat("dd/MM/yyyy");
+			String dataFormatada = formatoBrasil.format(dataAtual);
+		// ---- 
+		
+			vendas.setIdVendedor(id);
+			vendas.setNomeVendedor(vendedorIdentificado.getNomeVendedor());
+			vendas.setValorVenda(sells.getValorVenda());
+			vendas.setDataVenda(dataFormatada);
+			 
 			vendedorIdentificado.setQtdVendas(1); 	
 		} 
 		

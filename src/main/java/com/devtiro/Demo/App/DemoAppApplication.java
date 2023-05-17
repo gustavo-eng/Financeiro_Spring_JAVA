@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-// Entidade Comprador 
+
 
 @SpringBootApplication
 @RestController
 public class DemoAppApplication {
 	
-	// toda vez que aplicacao for executada, a configuracao sera executada 
-	// atributos nao informados,nao serao atualizados  no vendador na base de dados  
+	  
 	@Bean
 	public ModelMapper modelMapper(){
 		 ModelMapper modelMapper = new ModelMapper();
@@ -28,6 +27,7 @@ public class DemoAppApplication {
 		SpringApplication.run(DemoAppApplication.class, args);
 	}
 	
+	// Usados para teste e retirado da documentação
 	@GetMapping("/venda")
     public String hello(@RequestParam(value = "name", defaultValue = " vendedor Gustavo") String name) {
       return String.format("Hello %s!", name);
