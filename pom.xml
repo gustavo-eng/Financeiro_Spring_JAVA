@@ -91,7 +91,7 @@
 				    </executions>
 				    <configuration>
 				        <excludes>
-				            <exclude>*Test</exclude>
+				            <exclude></exclude>
 				        </excludes>
 				        <rules>
 				            <rule>

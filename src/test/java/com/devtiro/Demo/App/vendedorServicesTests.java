@@ -1,11 +1,9 @@
 package com.devtiro.Demo.App;
 
 import static org.assertj.core.api.Assertions.assertThat;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
 
-//import java.util.Arrays;
-//import java.util.List;
+
+
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,22 +11,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 import com.devtiro.Demo.App.entity.Vendedor;
 import com.devtiro.Demo.App.http.controller.VendedorController;
-//import com.devtiro.Demo.App.service.VendedorService;
+import com.devtiro.Demo.App.service.VendedorService;
+
 
 
 
 @SpringBootTest
-public class vendedorControllerTests {
+public class vendedorServicesTests {
 
 	@Autowired
 	private VendedorController controller; 
-	
-	
 
-//	@Autowired
-//	private VendedorService vendedorService;
+
+
 	@Test
 	public void contextLoads() throws Exception {
 		assertThat(controller).isNotNull();
@@ -43,7 +41,11 @@ public class vendedorControllerTests {
 		assertThat(novoVendedor.getNomeVendedor()).isEqualTo("xBrain");
 		assertThat(novoVendedor.getQtdVendas()).isEqualTo(0);
 		assertThat(novoVendedor.getMediaVendas()).isEqualTo(0.0f);
+		
+		
 	}
+	
+
 	
 	@DisplayName("Teste dos getters e setters da classe Vendedor")
     @Test
@@ -70,7 +72,30 @@ public class vendedorControllerTests {
     }
 	
 	
+	
+	
+	@DisplayName("Teste do método isDateInRange")
+    @Test
+    public void testIsDateInRange() {
+        VendedorService service = new VendedorService();
 
+        // Teste para data dentro do intervalo
+        boolean result1 = service.isDateInRange("01/01/2023", "31/12/2023", "15/06/2023");
+        assertThat(result1).isTrue();
+
+        // Teste para data antes do intervalo
+        boolean result2 = service.isDateInRange("01/01/2023", "31/12/2023", "15/12/2022");
+        assertThat(result2).isFalse();
+
+        // Teste para data após do intervalo
+        boolean result3 = service.isDateInRange("01/01/2023", "31/12/2023", "15/01/2024");
+        assertThat(result3).isFalse();
+    }
+	
+	
 	
 	
 }
+
+
+

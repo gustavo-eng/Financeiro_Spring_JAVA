@@ -30,7 +30,9 @@ public class VendedorController {
 	@Autowired
 	private VendedorService vendedorService; 
 	
-	
+	public VendedorController(VendedorService vendedorService) {
+		this.vendedorService = vendedorService;
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED) 

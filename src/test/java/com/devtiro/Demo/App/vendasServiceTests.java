@@ -18,7 +18,7 @@ import com.devtiro.Demo.App.service.VendasService;
 
 
 @SpringBootTest
-public class vendasControllerTests {
+public class vendasServiceTests {
 
 	@Autowired
 	private VendasController vendasController; 
@@ -65,6 +65,8 @@ public class vendasControllerTests {
         assertThat(vendas.getDataVenda()).isEqualTo(dataVenda);
         assertThat(vendas.getValorVenda()).isEqualTo(valorVenda);
     }
+	
+	
 	
 	
 }

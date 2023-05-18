@@ -23,8 +23,6 @@ public class VendasService {
 		return vendasRepository.findAll();
 	}
 	
-	
-	
 	public List<Vendas> vendasPorVendedor(Integer id) {
 	    List<Vendas> vendasDoVendedor = vendasRepository.findAll();
 	    

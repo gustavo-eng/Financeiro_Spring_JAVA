@@ -94,7 +94,7 @@ public class VendedorService {
 		
 
 	public void  calcularMediaPeriodica(Integer id, String periodoInicial, String periodoFinal) {
-		List<Vendas> vendasDoVendedor =  vendasRepository.findAll(); 
+		List<Vendas> vendasDoVendedor =  vendasRepository.findAll(); // mudar para findById 
 		List<Vendas> vendaFiltrada = new ArrayList<>();
 		List<Integer> qtdVendasPorDataValidada = new ArrayList<>();
 
