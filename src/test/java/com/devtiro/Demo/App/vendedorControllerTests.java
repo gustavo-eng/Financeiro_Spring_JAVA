@@ -1,11 +1,11 @@
 package com.devtiro.Demo.App;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+//import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.List;
+//import java.util.Arrays;
+//import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.devtiro.Demo.App.entity.Vendedor;
 import com.devtiro.Demo.App.http.controller.VendedorController;
-import com.devtiro.Demo.App.service.VendedorService;
+//import com.devtiro.Demo.App.service.VendedorService;
 
 
 
@@ -27,8 +27,8 @@ public class vendedorControllerTests {
 	
 	
 
-	@Autowired
-	private VendedorService vendedorService;
+//	@Autowired
+//	private VendedorService vendedorService;
 	@Test
 	public void contextLoads() throws Exception {
 		assertThat(controller).isNotNull();
